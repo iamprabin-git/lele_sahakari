@@ -1,0 +1,13 @@
+export const HOME_ROUTE = "/";
+export const ABOUT_ROUTE = "/about";
+export const TOUR_ROUTE = "/tour";
+export const TESTIMONIALS_ROUTE = "/testimonials";
+export const GALLERY_ROUTE = "/gallery";
+export const CONTACT_ROUTE = "/contact";
+export const ADMIN_ROUTE = "/dashboard";
+export const TOURS_DASHBOARD_ROUTE = "/tours-dashboard";
+export const TOURS_DASHBOARD_ADD_ROUTE = "/tours-dashboard/add";
+export const CUSTOMER_ROUTE = "/customer";
+export const CUSTOMER_ADD_ROUTE = "/customer/add";
+export const GALLERY_DASHBOARD_ROUTE = "/gallery-dashboard";
+export const REVIEW_DASHBOARD_ROUTE = "/reviews";
