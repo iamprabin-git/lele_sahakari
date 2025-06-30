@@ -1,6 +1,6 @@
 'use client';
 import Image from "next/image";
-import profile from "@/assets/my_photo.jpg";
+import profile from "@/assets/logo.png";
 import { motion } from "framer-motion";
 import { FaAward, FaUserFriends, FaStar, FaLanguage } from "react-icons/fa";
 

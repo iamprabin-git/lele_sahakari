@@ -1,140 +1,116 @@
-import {
-  ABOUT_ROUTE,
-  CONTACT_ROUTE,
-  HOME_ROUTE,
-  TESTIMONIALS_ROUTE,
-  TOUR_ROUTE,
-} from "@/constants/routes";
-import Link from "next/link";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaTwitter,
-  FaTripadvisor,
-  FaLine,
-  FaHome,
-  FaWhatsapp,
-} from "react-icons/fa";
-import { MdPhoneInTalk, MdEmail } from "react-icons/md";
-import { AiFillWechat } from "react-icons/ai";
-import SocialMedia from "./SocialMedia";
+// components/layout/Footer.jsx
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import logo from '@/assets/logo.png';
+import SocialIcon from './ui/SocialIcons';
+import { FOOTER_DATA, SOCIAL_LINKS } from '@/constants/footer';
+import { FaMapLocationDot } from "react-icons/fa6";
 
-export default function Footer() {
+const Footer = () => {
+  const currentYear = new Date().getFullYear();
+  
   return (
-    <footer className="bg-white text-gray-900  dark:bg-gray-900 dark:text-white py-12 shadow-2xl">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4">Binod Silwal khatri</h3>
-            <p className="text-gray-900 dark:text-white">
-              Professional tour guiding services offering unique experiences and
-              unforgettable memories.
+    <footer className=" bg-white text-slate-950 dark:bg-slate-900 dark:text-white shadow-2xl shadow-black ">
+      <div className="container mx-auto px-4 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+          {/* Logo and Description */}
+          <div className="lg:col-span-2">
+            <div className="flex ">
+              <Image 
+                src={logo}
+                alt="Cooperative Logo" 
+                width={1000} 
+                height={1000}
+                className="w-25 h-25 object-cover"
+              />
+               <h3 className='text-2xl font-bold m-2 gap-2'>Lele Agriculture Cooperative Ltd.</h3>
+            </div>
+           
+            <p className="text-slate-300 mb-6 max-w-md">
+              {FOOTER_DATA.description}
             </p>
-          </div>
-
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href={HOME_ROUTE}
-                  className="text-gray-900 hover:text-red-600 dark:text-white dark:hover:text-yellow-500 transition-colors"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={ABOUT_ROUTE}
-                  className="text-gray-900 hover:text-red-600 dark:text-white dark:hover:text-yellow-500 transition-colors"
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={TOUR_ROUTE}
-                  className="text-gray-900 hover:text-red-600 dark:text-white dark:hover:text-yellow-500 transition-colors"
-                >
-                  Tours
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={TESTIMONIALS_ROUTE}
-                  className="text-gray-900 hover:text-red-600 dark:text-white dark:hover:text-yellow-500 transition-colors"
-                >
-                  Testimonials
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={CONTACT_ROUTE}
-                  className="text-gray-900 hover:text-red-600 dark:text-white dark:hover:text-yellow-500 transition-colors"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
-            <ul className="text-gray-900 hover:text-red-700 dark:text-white dark:hover:text-yellow-500 transition-colors">
-              <li className="flex items-center gap-3">
-                <FaHome className="h-5 w-5" /> Thamel, Kathmandu
-              </li>
-              <li className="flex items-center gap-3">
-                <MdPhoneInTalk className="h-5 w-5" /> +977- 9851040321
-              </li>
-              <li className="flex items-center gap-3">
-                <MdEmail className="h-5 w-5" />
-                binodsilwal@gmail.com
-              </li>
-              <li className="flex items-center gap-3">
-                <FaLine className="h-5 w-5" /> binod
-              </li>
-              <li className="flex items-center gap-3">
-                <AiFillWechat className="h-5 w-5" /> binod40321
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Follow Me</h4>
-            <SocialMedia />
-            <div className="flex py-3 gap-3 items-start border-2 rounded-2xl border-blue-800 mt-5 bg-green-600">
-              <div className="flex-shrink-0 bg-green-400 dark:bg-green-900 p-1 rounded-full m-2">
-                <FaWhatsapp className="text-white dark:text-white text-2xl h-10 w-10" />
+            
+            {/* Contact Info */}
+            <div className="space-y-2">
+              <div className="flex items-start">
+                <FaMapLocationDot className='w-5 h-5 mr-3 mt-0.5 text-slate-400' />
+                
+                <span className="text-slate-400">{FOOTER_DATA.contact.address}</span>
               </div>
-              <div>
-                <h4 className="text-lg font-medium text-white dark:text-white mb-1">
-                  WhatsApp
-                </h4>
-                <Link
-                  href="https://wa.me/9851040321?text=Hello%20I'm%20interested%20in%20your%20tours"
+              <div className="flex items-center">
+                <svg className="w-5 h-5 mr-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <span className="text-slate-400">{FOOTER_DATA.contact.phone}</span>
+              </div>
+              <div className="flex items-center">
+                <svg className="w-5 h-5 mr-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span className="text-slate-400">{FOOTER_DATA.contact.email}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation Links */}
+          {FOOTER_DATA.links.map((section) => (
+            <div key={section.title} className="mt-6 md:mt-0">
+              <h3 className="text-lg font-semibold mb-4">{section.title}</h3>
+              <ul className="space-y-2">
+                {section.items.map((item) => (
+                  <li key={item.name}>
+                    <Link href={item.href} className="text-slate-300 hover:text-white transition-colors">
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {/* Social Media */}
+          <div className="mt-6 md:mt-0">
+            <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
+            <div className="flex space-x-4">
+              {SOCIAL_LINKS.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-grey-100 dark:text-white hover:underline"
+                  className="bg-slate-800 p-2 rounded-full hover:bg-cooperative-primary transition-colors"
+                  aria-label={social.name}
                 >
-                  +977-9851040321
-                </Link>
-                
-              </div>
+                  <SocialIcon icon={social.icon} />
+                </a>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 gap-4 flex flex-col md:flex-row justify-between items-center text-center text-gray-800 dark:text-gray-100">
-          <Link href="https://khatribinodsilwal.com.np">
-            &copy; {new Date().getFullYear()} Binod Silwal Khatri. All rights
-            reserved.
-          </Link>
-          <Link href="https://dangolprabin.com.np">
-            Designed and Developed by Prabin Dangol
-          </Link>
+        {/* Legal and Copyright */}
+        <div className="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <div className="mb-4 md:mb-0">
+            <p className="text-slate-500 text-sm">
+              © {currentYear} Cooperative Name. All rights reserved.
+            </p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-4">
+            {FOOTER_DATA.legal.map((item) => (
+              <Link 
+                key={item.name} 
+                href={item.href}
+                className="text-slate-400 hover:text-white text-sm transition-colors"
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;
