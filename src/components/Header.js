@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { NAV_ITEMS } from "@/constants/navItems";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { ADMIN_ROUTE, HOME_ROUTE } from "@/constants/routes";
-import logo from "@/assets/binodlogo.png";
+import logo from "@/assets/logo.png";
 import Image from "next/image";
 
 export default function Header() {

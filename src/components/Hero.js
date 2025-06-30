@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
-import heroImage from "@/assets/profile.jpg";
+import heroImage from "@/assets/logo.png";
 import Link from "next/link";
 import { CONTACT_ROUTE, TOUR_ROUTE } from "@/constants/routes";
 
