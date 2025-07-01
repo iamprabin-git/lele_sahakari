@@ -50,8 +50,8 @@ export default function Header() {
             <Image 
               src={logo} 
               alt="Logo" 
-              width={150} 
-              height={50} 
+              width={500} 
+              height={500} 
               className="h-12 w-auto object-contain"
             />
           </Link>
