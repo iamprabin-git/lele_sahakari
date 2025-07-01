@@ -2,7 +2,9 @@
 import { ABOUT_ROUTE, SERVICES_ROUTE, } from '@/constants/routes';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { FaCompass, FaUserFriends, FaStar, FaLanguage } from 'react-icons/fa';
+import { FaCompass, FaUserFriends} from 'react-icons/fa';
+import { GiTakeMyMoney } from "react-icons/gi";
+import { GiSpookyHouse } from "react-icons/gi";
 
 export default function AboutPreview() {
   // Animation variants
@@ -30,10 +32,10 @@ export default function AboutPreview() {
   };
 
   const stats = [
-    { icon: <FaCompass className="text-blue-500" />, value: "20+", label: "Years Experience" },
-    { icon: <FaUserFriends className="text-blue-500" />, value: "5000+", label: "Happy Travelers" },
-    { icon: <FaStar className="text-blue-500" />, value: "100%", label: "5-Star Reviews" },
-    { icon: <FaLanguage className="text-blue-500" />, value: "4", label: "Languages Spoken" }
+    { icon: <FaCompass className="text-blue-500" />, value: "10+", label: "Years Experience" },
+    { icon: <FaUserFriends className="text-blue-500" />, value: "1000+", label: "Happy Shareholders" },
+    { icon: <GiTakeMyMoney className="text-blue-500" />, value: "Rs. 30,00,000", label: "Share Capital" },
+    { icon: <GiSpookyHouse className="text-blue-500" />, value: "Rs. 1,00,00,000", label: "Total Assets" }
   ];
 
   return (
@@ -56,14 +58,14 @@ export default function AboutPreview() {
               variants={item}
               className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4"
             >
-              About <span className="text-blue-600 dark:text-blue-400">Your Guide</span>
+              About <span className="text-blue-600 dark:text-blue-400">Our Organization</span>
             </motion.h2>
             
             <motion.p 
               variants={item}
               className="text-gray-600 dark:text-gray-300 mb-6 text-lg"
             >
-              With over two decades of experience, I bring deep local knowledge and authentic passion to every tour. My goal is to create unforgettable experiences that go beyond typical tourist attractions.
+              With over decades of experience, we are community based cooperative, dedicated to providing a safe and nurturing environment for our shareholders to grow and prosper.
             </motion.p>
             
             <motion.div variants={item}>
@@ -87,9 +89,9 @@ export default function AboutPreview() {
               variants={item}
               className="mt-8 bg-blue-50 dark:bg-blue-900/30 p-6 rounded-xl border border-blue-100 dark:border-blue-800/50"
             >
-              <h3 className="text-lg font-semibold text-blue-700 dark:text-blue-300 mb-3">My Philosophy</h3>
+              <h3 className="text-lg font-semibold text-blue-700 dark:text-blue-300 mb-3">Our Philosophy</h3>
               <p className="text-gray-600 dark:text-gray-300 italic">
-                `Travel isn&apos;t just about seeing places, it&apos;s about experiencing cultures and creating connections that last a lifetime .`
+                `Alone we can do so little, together we can do so much. - Helen Keller`
               </p>
             </motion.div>
           </motion.div>
@@ -133,13 +135,13 @@ export default function AboutPreview() {
               transition={{ delay: 1 }}
               className="mt-8 p-6 bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-blue-700 dark:to-indigo-800 rounded-xl text-white"
             >
-              <h3 className="text-xl font-bold mb-2">Ready for Adventure?</h3>
-              <p className="mb-4 opacity-90">Join me on an unforgettable journey through Nepal&apos;s most breathtaking landscapes.</p>
+              <h3 className="text-xl font-bold mb-2">Ready for membership?</h3>
+              <p className="mb-4 opacity-90">Join us and unlock exclusive benefits.</p>
               <Link 
                 href={SERVICES_ROUTE}
                 className="inline-block bg-white text-blue-600 hover:bg-gray-100 px-5 py-2 rounded-lg font-medium transition-colors"
               >
-                Explore Tours
+               Click here to be a member
               </Link>
             </motion.div>
           </motion.div>
