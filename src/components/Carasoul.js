@@ -13,7 +13,7 @@ export default function Carousel() {
     <div className="w-full max-w-8xl mx-auto">
       <Swiper
         modules={[Autoplay, Pagination]}
-        slidesPerView={2}
+        slidesPerView={1}
         loop={true}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
@@ -26,7 +26,7 @@ export default function Carousel() {
               alt={img.alt}
               width={1200}
               height={1000}
-              className="object-contain pt-25 pb-10 w-full h-120"
+              className="object-center pt-25 pb-10 w-full h-150"
               priority
             />
           </SwiperSlide>
