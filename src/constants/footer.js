@@ -1,11 +1,11 @@
 // lib/constants/footer.js
-import { FaFacebookSquare } from "react-icons/fa";
+
 export const FOOTER_DATA = {
   description: "Building a sustainable future through community cooperation. Together we thrive.",
   contact: {
-    address: "123 Cooperative Way, Community City, CC 12345",
-    phone: "+1 (555) 123-4567",
-    email: "contact@cooperative.example",
+    address: "Godawari Municipality-5, Lalitpur, Nepal",
+    phone: "+977-9851182568",
+    email: "leleagricultural123@gmail.com",
   },
   links: [
     {
@@ -20,10 +20,10 @@ export const FOOTER_DATA = {
     {
       title: "Services",
       items: [
-        { name: "Financial Services", href: "/services/financial" },
-        { name: "Community Programs", href: "/services/programs" },
-        { name: "Education", href: "/services/education" },
-        { name: "Resource Sharing", href: "/services/resources" },
+        { name: "Deposites", href: "/services/financial" },
+        { name: "Loans", href: "/services/programs" },
+        { name: "Remittance", href: "/services/education" },
+        { name: "Other Services", href: "/services/resources" },
       ],
     },
     {
@@ -43,30 +43,3 @@ export const FOOTER_DATA = {
   ],
 };
 
-export const SOCIAL_LINKS = [
-  {
-    name: "Facebook",
-    href: "https://facebook.com/cooperative",
-    icon: <FaFacebookSquare />,
-  },
-  {
-    name: "Twitter",
-    href: "https://twitter.com/cooperative",
-    icon: "twitter",
-  },
-  {
-    name: "Instagram",
-    href: "https://instagram.com/cooperative",
-    icon: "instagram",
-  },
-  {
-    name: "LinkedIn",
-    href: "https://linkedin.com/company/cooperative",
-    icon: "linkedin",
-  },
-  {
-    name: "YouTube",
-    href: "https://youtube.com/cooperative",
-    icon: "youtube",
-  },
-];
