@@ -189,16 +189,7 @@ const Dashboard = () => {
                 {sidebarOpen && <span>Dashboard</span>}
               </Link>
             </li>
-            <li className="mb-1">
-              <Link
-                href={TOURS_DASHBOARD_ROUTE} 
-                className={`flex items-center p-3 ${activeTab === 'tours' ? 'bg-blue-700' : 'hover:bg-blue-700'}`}
-                onClick={() => setActiveTab('tours')}
-              >
-                <FaMapMarkerAlt className="mr-3 text-blue-300" />
-                {sidebarOpen && <span>Tours</span>}
-              </Link>
-            </li>
+            
             <li className="mb-1">
               <Link
                 href="#" 
