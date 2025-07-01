@@ -52,32 +52,50 @@ const ClientCarousel = () => {
     ...clients.map((client, idx) => ({ ...client, uniqueId: `second-${client.id}-${idx}` }))
   ];
 
+  // data for cards
+  const cardData = [
+    {
+      number: "16+",
+      text: "Remittance Companies",
+      description: "Global network of trusted services",
+    },
+    {
+      number: "100+",
+      text: "Countries",
+      description: "Worldwide coverage",
+    },
+    {
+      number: "24/7",
+      text: "Support",
+      description: "Dedicated customer service",
+    },
+  ];
+
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-gray-50 dark:bg-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
             Trusted by Industry Leaders
           </h2>
-          <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto dark:text-white">
             Join thousands of remittance partners that rely on our solutions
           </p>
         </div>
         
         {/* Carousel container */}
-        <div className="relative overflow-hidden py-8">
+        <div className="relative overflow-hidden py-5 border-2 rounded-2xl  border-gray-400 dark:border-gray-500 shadow-lg">
           {/* Gradient overlays */}
-          <div className="absolute top-0 left-0 h-full w-24 bg-gradient-to-r from-gray-50 to-transparent z-10" />
-          <div className="absolute top-0 right-0 h-full w-24 bg-gradient-to-l from-gray-50 to-transparent z-10" />
+          <div className="absolute top-0 left-0 h-full w-24 bg-gradient-to-r from-gray-50 to-transparent dark:from-slate-800 dark:to-transparent z-10" />
+          <div className="absolute top-0 right-0 h-full w-24 bg-gradient-to-l from-gray-50 to-transparent dark:from-slate-800 dark:to-transparent z-10" />
           
           {/* Carousel */}
           <div className="relative flex overflow-x-hidden">
-            {/* First set of clients */}
             <div 
               className={`flex ${isMounted ? 'animate-scroll' : ''} whitespace-nowrap py-4`}
               style={{ animationDuration: '40s' }}
             >
-              {duplicatedClients.slice(0, clients.length * 2).map((client) => (
+              {duplicatedClients.map((client) => (
                 <div 
                   key={client.uniqueId}
                   className="flex items-center justify-center mx-4 lg:mx-8 transition-transform duration-300 hover:scale-110"
@@ -97,37 +115,28 @@ const ClientCarousel = () => {
           </div>
         </div>
         
-        {/* Stats section */}
+        {/* Stats section - FIXED */}
         <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          <div className="bg-white p-6 rounded-xl shadow-sm text-center">
-            <div className="text-4xl font-bold text-blue-600">16+</div>
-            <div className="text-lg font-medium text-gray-900 mt-2">Remittance Partners</div>
-            <p className="text-gray-600 mt-2">Global network of trusted services</p>
-          </div>
-          
-          <div className="bg-white p-6 rounded-xl shadow-sm text-center">
-            <div className="text-4xl font-bold text-blue-600">150+</div>
-            <div className="text-lg font-medium text-gray-900 mt-2">Countries</div>
-            <p className="text-gray-600 mt-2">Worldwide coverage</p>
-          </div>
-          
-          <div className="bg-white p-6 rounded-xl shadow-sm text-center">
-            <div className="text-4xl font-bold text-blue-600">24/7</div>
-            <div className="text-lg font-medium text-gray-900 mt-2">Support</div>
-            <p className="text-gray-600 mt-2">Dedicated customer service</p>
-          </div>
+          {cardData.map((card, index) => (
+            <div 
+              key={index}
+              className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg text-center border border-gray-100 dark:border-slate-700"
+            >
+              <div className="text-4xl font-bold text-blue-600">{card.number}</div>
+              <div className="text-lg font-medium text-gray-900 dark:text-white mt-2">
+                {card.text}
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 mt-2">{card.description}</p>
+            </div>
+          ))}
         </div>
       </div>
       
       {/* Global CSS for animation */}
       <style jsx global>{`
         @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
         .animate-scroll {
           animation: scroll linear infinite;

@@ -6,6 +6,7 @@ import {
   TESTIMONIALS_ROUTE,
   CONTACT_ROUTE,
   GALLERY_ROUTE,
+  SERVICES_ROUTE,
 } from "./routes";
 
 export const NAV_ITEMS = [
@@ -22,7 +23,7 @@ export const NAV_ITEMS = [
   { 
     id: 3, 
     title: "Services",
-    url: TOUR_ROUTE,
+    url: SERVICES_ROUTE,
     subItems: [
       {
         id: 31,

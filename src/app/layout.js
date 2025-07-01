@@ -7,8 +7,8 @@ import Footer from '@/components/Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Binod silwal khatri- Adventure Tours guide',
-  description: 'Experience the best tours with a local expert guide',
+  title: 'lele agricultural cooperative Ltd.',
+  description: 'Local Based cooperative in lele, Lalitpur',
 }
 
 export default function RootLayout({ children }) {

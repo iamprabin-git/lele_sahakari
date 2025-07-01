@@ -1,5 +1,5 @@
 'use client';
-import { ABOUT_ROUTE, TOUR_ROUTE } from '@/constants/routes';
+import { ABOUT_ROUTE, SERVICES_ROUTE, } from '@/constants/routes';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaCompass, FaUserFriends, FaStar, FaLanguage } from 'react-icons/fa';
@@ -136,7 +136,7 @@ export default function AboutPreview() {
               <h3 className="text-xl font-bold mb-2">Ready for Adventure?</h3>
               <p className="mb-4 opacity-90">Join me on an unforgettable journey through Nepal&apos;s most breathtaking landscapes.</p>
               <Link 
-                href={TOUR_ROUTE}
+                href={SERVICES_ROUTE}
                 className="inline-block bg-white text-blue-600 hover:bg-gray-100 px-5 py-2 rounded-lg font-medium transition-colors"
               >
                 Explore Tours
