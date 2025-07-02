@@ -3,6 +3,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
+import HoverDropdown from '@/components/HoverDropdown'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${inter.className} theme-transition`}>
         <Header />
+        <HoverDropdown />
         
         {children}
         <WhatsAppButton />
