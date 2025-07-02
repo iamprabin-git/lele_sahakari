@@ -73,31 +73,31 @@ export default function ContactPage() {
     {
       icon: <FaWhatsapp className="text-xl" />,
       title: "WhatsApp",
-      value: "+977-9851040321",
-      link: "https://wa.me/9851040321?text=Hello%20I'm%20interested%20in%20your%20tours",
+      value: "+977-9766384876",
+      link: "https://wa.me/9766384876?text=Hello%20I'm%20interested%20in%20your%20tours",
       description: "Fastest way to get in touch",
       color: "bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400"
     },
     {
       icon: <FaPhone className="text-xl" />,
       title: "Phone",
-      value: "+977-9851040321",
-      link: "tel:+977-9851040321",
-      description: "Available 9AM-6PM daily",
+      value: "+977-9766384876",
+      link: "tel:+977-9766384876",
+      description: "Available 10AM-5PM daily",
       color: "bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400"
     },
     {
       icon: <FaEnvelope className="text-xl" />,
       title: "Email",
-      value: "binodsilwal@gmail.com",
-      link: "mailto:binodsilwal@gmail.com",
+      value: "leleagricultural123@gmail.com",
+      link: "mailto:leleagricultural123@gmail.com",
       description: "Response within 24 hours",
       color: "bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-400"
     },
     {
       icon: <FaMapMarkerAlt className="text-xl" />,
       title: "Location",
-      value: "Thamel, Kathmandu, Nepal",
+      value: "Godawari Municipality-5, Lalitpur, Nepal",
       description: "Available for local meetups",
       color: "bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400"
     }
@@ -120,7 +120,7 @@ export default function ContactPage() {
         >
           <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">Contact Me</h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Get in touch for tour bookings or inquiries
+            Get in touch for your Financial Planning
           </p>
           <div className="w-20 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mt-4"></div>
         </motion.div>
