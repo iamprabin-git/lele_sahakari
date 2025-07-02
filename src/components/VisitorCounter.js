@@ -78,12 +78,6 @@ const VisitorCounter = () => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  // Calculate growth percentage
-  const calculateGrowth = () => {
-    if (visitorCount === 0) return 0;
-    return Math.round((newVisitorsToday / visitorCount) * 100);
-  };
-
   return (
     <div className="max-w-5xl mx-auto px-2 py-4">
       <div className="bg-gradient-to-br from-blue-600 to-indigo-900 rounded-2xl shadow-xl overflow-hidden">
