@@ -5,6 +5,7 @@ import Carousel from "@/components/Carasoul";
 import ClientCarousel from "@/components/Remittance";
 import ServicesCard from "@/components/ServiceCard";
 import SponsorshipCard from "@/components/Sponsership";
+import TabsComponent from "@/components/NoticeTab";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <AboutPreview />
       <ClientCarousel />
       <SponsorshipCard />
+      <TabsComponent />
       <TestimonialsPreview />
     </main>
   );
