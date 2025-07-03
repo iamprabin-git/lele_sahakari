@@ -1,6 +1,6 @@
 // components/AccountOpeningForm.jsx
 "use client";
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FaUser, FaPhone, FaIdCard, FaLock, FaCheck, FaArrowLeft, FaUpload } from 'react-icons/fa';
 import { MdEmail, MdLocationOn, MdAccountBalance } from 'react-icons/md';
 
@@ -41,20 +41,171 @@ const MembershipForm = () => {
   const [selfiePreview, setSelfiePreview] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [passwordMatchError, setPasswordMatchError] = useState('');
 
   const fileInputRefFront = useRef(null);
   const fileInputRefBack = useRef(null);
   const fileInputRefSelfie = useRef(null);
 
+  useEffect(() => {
+    // Validate password match on change
+    if (step === 4 && formData.account.password && formData.account.confirmPassword) {
+      if (formData.account.password !== formData.account.confirmPassword) {
+        setPasswordMatchError('Passwords do not match');
+      } else {
+        setPasswordMatchError('');
+      }
+    }
+  }, [formData.account.password, formData.account.confirmPassword, step]);
+
+  const validateStep = () => {
+    let isValid = true;
+    const newErrors = {};
+
+    switch (step) {
+      case 1:
+        if (!formData.personal.firstName.trim()) {
+          newErrors.personal = { ...newErrors.personal, firstName: 'First name is required' };
+          isValid = false;
+        }
+        if (!formData.personal.lastName.trim()) {
+          newErrors.personal = { ...newErrors.personal, lastName: 'Last name is required' };
+          isValid = false;
+        }
+        if (!formData.personal.dob) {
+          newErrors.personal = { ...newErrors.personal, dob: 'Date of birth is required' };
+          isValid = false;
+        }
+        break;
+      case 2:
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!formData.contact.email.trim()) {
+          newErrors.contact = { ...newErrors.contact, email: 'Email is required' };
+          isValid = false;
+        } else if (!emailRegex.test(formData.contact.email)) {
+          newErrors.contact = { ...newErrors.contact, email: 'Invalid email format' };
+          isValid = false;
+        }
+        
+        const phoneRegex = /^[0-9]{10}$/;
+        if (!formData.contact.phone.trim()) {
+          newErrors.contact = { ...newErrors.contact, phone: 'Phone number is required' };
+          isValid = false;
+        } else if (!phoneRegex.test(formData.contact.phone)) {
+          newErrors.contact = { ...newErrors.contact, phone: 'Phone number must be 10 digits' };
+          isValid = false;
+        }
+        
+        if (!formData.contact.address.trim()) {
+          newErrors.contact = { ...newErrors.contact, address: 'Address is required' };
+          isValid = false;
+        }
+        if (!formData.contact.city.trim()) {
+          newErrors.contact = { ...newErrors.contact, city: 'City is required' };
+          isValid = false;
+        }
+        if (!formData.contact.state.trim()) {
+          newErrors.contact = { ...newErrors.contact, state: 'State is required' };
+          isValid = false;
+        }
+        
+        const zipRegex = /^[0-9]{5}(?:-[0-9]{4})?$/;
+        if (!formData.contact.zip.trim()) {
+          newErrors.contact = { ...newErrors.contact, zip: 'ZIP code is required' };
+          isValid = false;
+        } else if (!zipRegex.test(formData.contact.zip)) {
+          newErrors.contact = { ...newErrors.contact, zip: 'Invalid ZIP code format' };
+          isValid = false;
+        }
+        break;
+      case 3:
+        if (!formData.identity.idNumber.trim()) {
+          newErrors.identity = { ...newErrors.identity, idNumber: 'ID number is required' };
+          isValid = false;
+        }
+        if (!formData.identity.idFront) {
+          newErrors.identity = { ...newErrors.identity, idFront: 'Front of ID is required' };
+          isValid = false;
+        }
+        if (!formData.identity.idBack) {
+          newErrors.identity = { ...newErrors.identity, idBack: 'Back of ID is required' };
+          isValid = false;
+        }
+        if (!formData.identity.selfie) {
+          newErrors.identity = { ...newErrors.identity, selfie: 'Selfie is required' };
+          isValid = false;
+        }
+        break;
+      case 4:
+        if (!formData.account.initialDeposit) {
+          newErrors.account = { ...newErrors.account, initialDeposit: 'Initial deposit is required' };
+          isValid = false;
+        } else if (parseFloat(formData.account.initialDeposit) < 100) {
+          newErrors.account = { ...newErrors.account, initialDeposit: 'Minimum deposit is Rs. 100' };
+          isValid = false;
+        }
+        if (!formData.account.password) {
+          newErrors.account = { ...newErrors.account, password: 'Password is required' };
+          isValid = false;
+        } else if (formData.account.password.length < 6) {
+          newErrors.account = { ...newErrors.account, password: 'Password must be at least 6 characters' };
+          isValid = false;
+        }
+        if (!formData.account.confirmPassword) {
+          newErrors.account = { ...newErrors.account, confirmPassword: 'Please confirm your password' };
+          isValid = false;
+        } else if (formData.account.password !== formData.account.confirmPassword) {
+          newErrors.account = { ...newErrors.account, confirmPassword: 'Passwords do not match' };
+          isValid = false;
+        }
+        break;
+      case 5:
+        if (!formData.terms) {
+          newErrors.terms = 'You must agree to the terms and conditions';
+          isValid = false;
+        }
+        break;
+      default:
+        break;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const handleChange = (e, section) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [section]: {
-        ...formData[section],
+    
+    if (section) {
+      setFormData(prev => ({
+        ...prev,
+        [section]: {
+          ...prev[section],
+          [name]: type === 'checkbox' ? checked : value,
+        },
+      }));
+    } else {
+      // Handle root-level fields (like 'terms')
+      setFormData(prev => ({
+        ...prev,
         [name]: type === 'checkbox' ? checked : value,
-      },
-    });
+      }));
+    }
+
+    // Clear error when field is changed
+    if (errors[section]?.[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        if (newErrors[section]) {
+          delete newErrors[section][name];
+          if (Object.keys(newErrors[section]).length === 0) {
+            delete newErrors[section];
+          }
+        }
+        return newErrors;
+      });
+    }
   };
 
   const handleImageUpload = (e, setPreview, fileType) => {
@@ -77,15 +228,29 @@ const MembershipForm = () => {
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreview(reader.result);
-      setFormData({
-        ...formData,
+      setFormData(prev => ({
+        ...prev,
         identity: {
-          ...formData.identity,
+          ...prev.identity,
           [fileType]: file,
         },
-      });
+      }));
     };
     reader.readAsDataURL(file);
+    
+    // Clear image error
+    if (errors.identity?.[fileType]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        if (newErrors.identity) {
+          delete newErrors.identity[fileType];
+          if (Object.keys(newErrors.identity).length === 0) {
+            delete newErrors.identity;
+          }
+        }
+        return newErrors;
+      });
+    }
   };
 
   const triggerFileInput = (ref) => {
@@ -93,7 +258,9 @@ const MembershipForm = () => {
   };
 
   const nextStep = () => {
-    setStep(step + 1);
+    if (validateStep()) {
+      setStep(step + 1);
+    }
   };
 
   const prevStep = () => {
@@ -102,14 +269,17 @@ const MembershipForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      console.log('Form submitted:', formData);
-    }, 2000);
+    if (validateStep()) {
+      setIsSubmitting(true);
+      
+      // Simulate API call
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+        console.log('Form submitted:', formData);
+      }, 2000);
+    }
   };
 
   const renderStep = () => {
@@ -125,40 +295,43 @@ const MembershipForm = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-gray-700 mb-2">First Name</label>
+                <label className="block text-gray-700 mb-2">First Name *</label>
                 <input
                   type="text"
                   name="firstName"
                   value={formData.personal.firstName}
                   onChange={(e) => handleChange(e, 'personal')}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className={`w-full px-4 py-3 border ${errors.personal?.firstName ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
+                {errors.personal?.firstName && <p className="mt-1 text-red-500 text-sm">{errors.personal.firstName}</p>}
               </div>
               <div>
-                <label className="block text-gray-700 mb-2">Last Name</label>
+                <label className="block text-gray-700 mb-2">Last Name *</label>
                 <input
                   type="text"
                   name="lastName"
                   value={formData.personal.lastName}
                   onChange={(e) => handleChange(e, 'personal')}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className={`w-full px-4 py-3 border ${errors.personal?.lastName ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
+                {errors.personal?.lastName && <p className="mt-1 text-red-500 text-sm">{errors.personal.lastName}</p>}
               </div>
               <div>
-                <label className="block text-gray-700 mb-2">Date of Birth</label>
+                <label className="block text-gray-700 mb-2">Date of Birth *</label>
                 <input
                   type="date"
                   name="dob"
                   value={formData.personal.dob}
                   onChange={(e) => handleChange(e, 'personal')}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className={`w-full px-4 py-3 border ${errors.personal?.dob ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
+                {errors.personal?.dob && <p className="mt-1 text-red-500 text-sm">{errors.personal.dob}</p>}
               </div>
               <div>
-                <label className="block text-gray-700 mb-2">Gender</label>
+                <label className="block text-gray-700 mb-2">Gender *</label>
                 <select
                   name="gender"
                   value={formData.personal.gender}
@@ -186,71 +359,79 @@ const MembershipForm = () => {
             
             <div className="space-y-6">
               <div>
-                <label className="block text-gray-700 mb-2">Email Address</label>
+                <label className="block text-gray-700 mb-2">Email Address *</label>
                 <input
                   type="email"
                   name="email"
                   value={formData.contact.email}
                   onChange={(e) => handleChange(e, 'contact')}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className={`w-full px-4 py-3 border ${errors.contact?.email ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
+                {errors.contact?.email && <p className="mt-1 text-red-500 text-sm">{errors.contact.email}</p>}
               </div>
               <div>
-                <label className="block text-gray-700 mb-2">Phone Number</label>
+                <label className="block text-gray-700 mb-2">Phone Number *</label>
                 <input
                   type="tel"
                   name="phone"
                   value={formData.contact.phone}
                   onChange={(e) => handleChange(e, 'contact')}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className={`w-full px-4 py-3 border ${errors.contact?.phone ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                  placeholder="10-digit number"
                   required
                 />
+                {errors.contact?.phone && <p className="mt-1 text-red-500 text-sm">{errors.contact.phone}</p>}
               </div>
               <div>
-                <label className="block text-gray-700 mb-2">Street Address</label>
+                <label className="block text-gray-700 mb-2">Street Address *</label>
                 <input
                   type="text"
                   name="address"
                   value={formData.contact.address}
                   onChange={(e) => handleChange(e, 'contact')}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className={`w-full px-4 py-3 border ${errors.contact?.address ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
+                {errors.contact?.address && <p className="mt-1 text-red-500 text-sm">{errors.contact.address}</p>}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <label className="block text-gray-700 mb-2">City</label>
+                  <label className="block text-gray-700 mb-2">City *</label>
                   <input
                     type="text"
                     name="city"
                     value={formData.contact.city}
                     onChange={(e) => handleChange(e, 'contact')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className={`w-full px-4 py-3 border ${errors.contact?.city ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                     required
                   />
+                  {errors.contact?.city && <p className="mt-1 text-red-500 text-sm">{errors.contact.city}</p>}
                 </div>
                 <div>
-                  <label className="block text-gray-700 mb-2">State</label>
+                  <label className="block text-gray-700 mb-2">State *</label>
                   <input
                     type="text"
                     name="state"
                     value={formData.contact.state}
                     onChange={(e) => handleChange(e, 'contact')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className={`w-full px-4 py-3 border ${errors.contact?.state ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                     required
                   />
+                  {errors.contact?.state && <p className="mt-1 text-red-500 text-sm">{errors.contact.state}</p>}
                 </div>
                 <div>
-                  <label className="block text-gray-700 mb-2">ZIP Code</label>
+                  <label className="block text-gray-700 mb-2">ZIP Code *</label>
                   <input
                     type="text"
                     name="zip"
                     value={formData.contact.zip}
                     onChange={(e) => handleChange(e, 'contact')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className={`w-full px-4 py-3 border ${errors.contact?.zip ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                    placeholder="e.g. 12345"
                     required
                   />
+                  {errors.contact?.zip && <p className="mt-1 text-red-500 text-sm">{errors.contact.zip}</p>}
                 </div>
               </div>
             </div>
@@ -267,7 +448,7 @@ const MembershipForm = () => {
             
             <div className="space-y-8">
               <div>
-                <label className="block text-gray-700 mb-2">ID Type</label>
+                <label className="block text-gray-700 mb-2">ID Type *</label>
                 <select
                   name="idType"
                   value={formData.identity.idType}
@@ -283,20 +464,21 @@ const MembershipForm = () => {
               </div>
               
               <div>
-                <label className="block text-gray-700 mb-2">ID Number</label>
+                <label className="block text-gray-700 mb-2">ID Number *</label>
                 <input
                   type="text"
                   name="idNumber"
                   value={formData.identity.idNumber}
                   onChange={(e) => handleChange(e, 'identity')}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className={`w-full px-4 py-3 border ${errors.identity?.idNumber ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
+                {errors.identity?.idNumber && <p className="mt-1 text-red-500 text-sm">{errors.identity.idNumber}</p>}
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                  <label className="block text-gray-700 mb-2">Front of ID</label>
+                  <label className="block text-gray-700 mb-2">Front of ID *</label>
                   <input
                     type="file"
                     ref={fileInputRefFront}
@@ -305,7 +487,7 @@ const MembershipForm = () => {
                     className="hidden"
                   />
                   <div 
-                    className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50"
+                    className={`border-2 ${errors.identity?.idFront ? 'border-red-500' : 'border-dashed border-gray-300'} rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50`}
                     onClick={() => triggerFileInput(fileInputRefFront)}
                   >
                     {idFrontPreview ? (
@@ -313,12 +495,15 @@ const MembershipForm = () => {
                         <img 
                           src={idFrontPreview} 
                           alt="ID Front" 
-                          className="w-full h-48 object-contain rounded-md"
+                          className="w-full max-h-48 object-contain rounded-md"
                         />
                         <button 
                           type="button"
                           className="mt-4 text-blue-600 hover:text-blue-800"
-                          onClick={() => triggerFileInput(fileInputRefFront)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            triggerFileInput(fileInputRefFront);
+                          }}
                         >
                           <FaUpload className="inline mr-1" /> Change Image
                         </button>
@@ -331,10 +516,11 @@ const MembershipForm = () => {
                       </div>
                     )}
                   </div>
+                  {errors.identity?.idFront && <p className="mt-1 text-red-500 text-sm">{errors.identity.idFront}</p>}
                 </div>
                 
                 <div>
-                  <label className="block text-gray-700 mb-2">Back of ID</label>
+                  <label className="block text-gray-700 mb-2">Back of ID *</label>
                   <input
                     type="file"
                     ref={fileInputRefBack}
@@ -343,7 +529,7 @@ const MembershipForm = () => {
                     className="hidden"
                   />
                   <div 
-                    className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50"
+                    className={`border-2 ${errors.identity?.idBack ? 'border-red-500' : 'border-dashed border-gray-300'} rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50`}
                     onClick={() => triggerFileInput(fileInputRefBack)}
                   >
                     {idBackPreview ? (
@@ -351,12 +537,15 @@ const MembershipForm = () => {
                         <img 
                           src={idBackPreview} 
                           alt="ID Back" 
-                          className="w-full h-48 object-contain rounded-md"
+                          className="w-full max-h-48 object-contain rounded-md"
                         />
                         <button 
                           type="button"
                           className="mt-4 text-blue-600 hover:text-blue-800"
-                          onClick={() => triggerFileInput(fileInputRefBack)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            triggerFileInput(fileInputRefBack);
+                          }}
                         >
                           <FaUpload className="inline mr-1" /> Change Image
                         </button>
@@ -369,11 +558,12 @@ const MembershipForm = () => {
                       </div>
                     )}
                   </div>
+                  {errors.identity?.idBack && <p className="mt-1 text-red-500 text-sm">{errors.identity.idBack}</p>}
                 </div>
               </div>
               
               <div>
-                <label className="block text-gray-700 mb-2">Selfie Photo</label>
+                <label className="block text-gray-700 mb-2">Selfie Photo *</label>
                 <input
                   type="file"
                   ref={fileInputRefSelfie}
@@ -382,7 +572,7 @@ const MembershipForm = () => {
                   className="hidden"
                 />
                 <div 
-                  className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50"
+                  className={`border-2 ${errors.identity?.selfie ? 'border-red-500' : 'border-dashed border-gray-300'} rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50`}
                   onClick={() => triggerFileInput(fileInputRefSelfie)}
                 >
                   {selfiePreview ? (
@@ -390,12 +580,15 @@ const MembershipForm = () => {
                       <img 
                         src={selfiePreview} 
                         alt="Selfie" 
-                        className="w-full h-48 object-contain rounded-md"
+                        className="w-full max-h-48 object-contain rounded-md"
                       />
                       <button 
                         type="button"
                         className="mt-4 text-blue-600 hover:text-blue-800"
-                        onClick={() => triggerFileInput(fileInputRefSelfie)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          triggerFileInput(fileInputRefSelfie);
+                        }}
                       >
                         <FaUpload className="inline mr-1" /> Change Photo
                       </button>
@@ -408,6 +601,7 @@ const MembershipForm = () => {
                     </div>
                   )}
                 </div>
+                {errors.identity?.selfie && <p className="mt-1 text-red-500 text-sm">{errors.identity.selfie}</p>}
               </div>
             </div>
           </div>
@@ -423,7 +617,7 @@ const MembershipForm = () => {
             
             <div className="space-y-6">
               <div>
-                <label className="block text-gray-700 mb-2">Account Type</label>
+                <label className="block text-gray-700 mb-2">Account Type *</label>
                 <select
                   name="accountType"
                   value={formData.account.accountType}
@@ -439,41 +633,48 @@ const MembershipForm = () => {
               </div>
               
               <div>
-                <label className="block text-gray-700 mb-2">Initial Deposit (Rs )</label>
+                <label className="block text-gray-700 mb-2">Initial Deposit (Rs.) *</label>
                 <input
                   type="number"
                   name="initialDeposit"
                   value={formData.account.initialDeposit}
                   onChange={(e) => handleChange(e, 'account')}
-                  min="50"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  min="100"
+                  className={`w-full px-4 py-3 border ${errors.account?.initialDeposit ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
-                <p className="text-xs text-gray-500 mt-1">Minimum initial deposit is Rs. 100</p>
+                {errors.account?.initialDeposit ? (
+                  <p className="mt-1 text-red-500 text-sm">{errors.account.initialDeposit}</p>
+                ) : (
+                  <p className="text-xs text-gray-500 mt-1">Minimum initial deposit is Rs. 100</p>
+                )}
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-gray-700 mb-2">Password</label>
+                  <label className="block text-gray-700 mb-2">Password *</label>
                   <input
                     type="password"
                     name="password"
                     value={formData.account.password}
                     onChange={(e) => handleChange(e, 'account')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className={`w-full px-4 py-3 border ${errors.account?.password ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                     required
                   />
+                  {errors.account?.password && <p className="mt-1 text-red-500 text-sm">{errors.account.password}</p>}
+                  <p className="text-xs text-gray-500 mt-1">Minimum 6 characters</p>
                 </div>
                 <div>
-                  <label className="block text-gray-700 mb-2">Confirm Password</label>
+                  <label className="block text-gray-700 mb-2">Confirm Password *</label>
                   <input
                     type="password"
                     name="confirmPassword"
                     value={formData.account.confirmPassword}
                     onChange={(e) => handleChange(e, 'account')}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className={`w-full px-4 py-3 border ${errors.account?.confirmPassword ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                     required
                   />
+                  {errors.account?.confirmPassword && <p className="mt-1 text-red-500 text-sm">{errors.account.confirmPassword}</p>}
                 </div>
               </div>
             </div>
@@ -531,6 +732,24 @@ const MembershipForm = () => {
               </div>
               
               <div>
+                <h3 className="font-semibold text-lg text-gray-800 mb-4">Identity Verification</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <p className="text-gray-600">ID Type</p>
+                    <p className="font-medium capitalize">{formData.identity.idType.replace(/-/g, ' ')}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">ID Number</p>
+                    <p className="font-medium">{formData.identity.idNumber}</p>
+                  </div>
+                  <div className="md:col-span-3">
+                    <p className="text-gray-600">Documents Uploaded</p>
+                    <p className="font-medium text-green-600">Front, Back and Selfie provided</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
                 <h3 className="font-semibold text-lg text-gray-800 mb-4">Account Details</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -539,7 +758,7 @@ const MembershipForm = () => {
                   </div>
                   <div>
                     <p className="text-gray-600">Initial Deposit</p>
-                    <p className="font-medium">Rs.{formData.account.initialDeposit}</p>
+                    <p className="font-medium">Rs. {parseFloat(formData.account.initialDeposit).toLocaleString()}</p>
                   </div>
                 </div>
               </div>
@@ -551,7 +770,7 @@ const MembershipForm = () => {
                     id="terms"
                     name="terms"
                     checked={formData.terms}
-                    onChange={(e) => handleChange(e, 'terms')}
+                    onChange={(e) => handleChange(e, undefined)}
                     className="mt-1 mr-3"
                     required
                   />
@@ -559,6 +778,7 @@ const MembershipForm = () => {
                     I agree to the Terms and Conditions and Privacy Policy. I confirm that all information provided is accurate.
                   </label>
                 </div>
+                {errors.terms && <p className="mt-2 text-red-500 text-sm">{errors.terms}</p>}
               </div>
             </div>
           </div>
@@ -599,6 +819,40 @@ const MembershipForm = () => {
           onClick={() => {
             setIsSubmitted(false);
             setStep(1);
+            setFormData({
+              personal: {
+                firstName: '',
+                lastName: '',
+                dob: '',
+                gender: 'male',
+              },
+              contact: {
+                email: '',
+                phone: '',
+                address: '',
+                city: '',
+                state: '',
+                zip: '',
+              },
+              identity: {
+                idType: 'passport',
+                idNumber: '',
+                idFront: null,
+                idBack: null,
+                selfie: null,
+              },
+              account: {
+                accountType: 'savings',
+                initialDeposit: '',
+                password: '',
+                confirmPassword: '',
+              },
+              terms: false,
+            });
+            setIdFrontPreview(null);
+            setIdBackPreview(null);
+            setSelfiePreview(null);
+            setErrors({});
           }}
           className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition-colors"
         >
@@ -667,7 +921,7 @@ const MembershipForm = () => {
             ) : (
               <button
                 type="submit"
-                disabled={isSubmitting || !formData.terms}
+                disabled={isSubmitting}
                 className={`ml-auto flex items-center font-medium py-3 px-8 rounded-lg transition-colors ${
                   isSubmitting
                     ? 'bg-blue-400 cursor-not-allowed'
