@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { BsQrCode } from "react-icons/bs";
 import { HiCalculator } from "react-icons/hi";
 import { BsPersonFillAdd } from "react-icons/bs";
-import { EMI_ROUTE, QR_ROUTE } from "@/constants/routes";
+import { EMI_ROUTE, MEMBERSHIP_ROUTE, QR_ROUTE } from "@/constants/routes";
 
 const HoverDropdown = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -29,7 +29,7 @@ const HoverDropdown = () => {
        <BsPersonFillAdd />
       ),
       label: "Account Opening Form",
-      link: "/membership",
+      link: MEMBERSHIP_ROUTE,
     },
     // Add other menu items as needed...
   ];

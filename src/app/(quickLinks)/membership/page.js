@@ -1,12 +1,12 @@
-import AccountOpeningForm from '@/components/AccountOpening';
+import MembershipForm from '@/components/Membership';
 import React from 'react'
 
-function MembershipForm() {
+function Membership() {
   return (
     <div>
-      <AccountOpeningForm />
+      <MembershipForm />
     </div>
   )
 }
 
-export default MembershipForm;
+export default Membership;

@@ -8,6 +8,7 @@ import SponsorshipCard from "@/components/Sponsership";
 import TabsComponent from "@/components/NoticeTab";
 
 
+
 export default function Home() {
   return (
     <main>

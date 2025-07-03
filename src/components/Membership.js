@@ -4,7 +4,7 @@ import React, { useState, useRef } from 'react';
 import { FaUser, FaPhone, FaIdCard, FaLock, FaCheck, FaArrowLeft, FaUpload } from 'react-icons/fa';
 import { MdEmail, MdLocationOn, MdAccountBalance } from 'react-icons/md';
 
-const AccountOpeningForm = () => {
+const MembershipForm = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     personal: {
@@ -449,7 +449,7 @@ const AccountOpeningForm = () => {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
-                <p className="text-xs text-gray-500 mt-1">Minimum initial deposit is $50</p>
+                <p className="text-xs text-gray-500 mt-1">Minimum initial deposit is Rs. 100</p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -694,4 +694,4 @@ const AccountOpeningForm = () => {
   );
 };
 
-export default AccountOpeningForm;
+export default MembershipForm;
