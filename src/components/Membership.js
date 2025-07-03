@@ -182,7 +182,7 @@ const MembershipForm = () => {
               <MdEmail className="mr-2 text-blue-600" />
               Contact Information
             </h2>
-            <p className="text-gray-600">We'll use this information to contact you about your account.</p>
+            <p className="text-gray-600">We will use this information to contact you about your account.</p>
             
             <div className="space-y-6">
               <div>
@@ -276,7 +276,7 @@ const MembershipForm = () => {
                   required
                 >
                   <option value="passport">Passport</option>
-                  <option value="drivers-license">Driver's License</option>
+                  <option value="drivers-license">Driving License</option>
                   <option value="national-id">National ID</option>
                   <option value="other">Other Government ID</option>
                 </select>
@@ -439,7 +439,7 @@ const MembershipForm = () => {
               </div>
               
               <div>
-                <label className="block text-gray-700 mb-2">Initial Deposit ($)</label>
+                <label className="block text-gray-700 mb-2">Initial Deposit (Rs )</label>
                 <input
                   type="number"
                   name="initialDeposit"
@@ -539,7 +539,7 @@ const MembershipForm = () => {
                   </div>
                   <div>
                     <p className="text-gray-600">Initial Deposit</p>
-                    <p className="font-medium">${formData.account.initialDeposit}</p>
+                    <p className="font-medium">Rs.{formData.account.initialDeposit}</p>
                   </div>
                 </div>
               </div>
@@ -576,18 +576,18 @@ const MembershipForm = () => {
         </div>
         <h2 className="text-3xl font-bold text-gray-800 mb-4">Account Application Submitted!</h2>
         <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-          Thank you for applying for an account with us. Your application is being processed and we'll contact you within 1-2 business days to complete the verification process.
+          Thank you for applying for an account with us. Your application is being processed and we will contact you within 1-2 business days to complete the verification process.
         </p>
         <div className="bg-blue-50 rounded-xl p-6 max-w-xl mx-auto mb-8">
           <h3 className="font-bold text-lg text-blue-800 mb-3">Next Steps</h3>
           <ul className="text-left space-y-2 text-gray-700">
             <li className="flex items-start">
               <span className="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">1</span>
-              <span>We'll verify your identity documents</span>
+              <span>We will verify your identity documents</span>
             </li>
             <li className="flex items-start">
               <span className="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">2</span>
-              <span>You'll receive an email with further instructions</span>
+              <span>You will receive an email with further instructions</span>
             </li>
             <li className="flex items-start">
               <span className="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">3</span>
