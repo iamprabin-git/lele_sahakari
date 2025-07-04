@@ -224,7 +224,7 @@ const AccountOpeningPage = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden">
+    <div className="max-w-4xl mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow-lg pt-25 overflow-hidden">
       {!isSubmitted && <ProgressBar currentStep={step} />}
       
       <div className="p-6 md:p-8">

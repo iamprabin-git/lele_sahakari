@@ -14,3 +14,4 @@ export const REVIEW_DASHBOARD_ROUTE = "/reviews";
 export const QR_ROUTE = "/qr";
 export const EMI_ROUTE = "/emi";
 export const MEMBERSHIP_ROUTE = "/membership";
+// export const MEMBERSHIP_FORM_ROUTE = "/membershipForm";
