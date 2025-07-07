@@ -14,7 +14,7 @@ const AboutPage = () => {
     {
       id: 1,
       name: 'Sarah Johnson',
-      title: 'CEO & Founder',
+      title: 'CEO &amp; Founder',
       bio: 'With over 20 years in finance, Sarah founded WealthBridge to create a client-first financial services firm.',
       experience: 'Former VP at Goldman Sachs, MBA from Wharton'
     },
