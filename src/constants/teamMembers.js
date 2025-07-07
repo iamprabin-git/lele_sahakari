@@ -1,21 +1,28 @@
-// constants/teamMembers.js
 import image1 from "../assets/boardMember/uttam.png";
+
+// Helper function to generate WhatsApp links
+function getWhatsAppLink(phone) {
+  const cleaned = phone.replace(/\D/g, "");
+  return `https://wa.me/${cleaned}`;
+}
+
 export const teamMembers = [
   {
     id: 1,
-    name: "Sarah Johnson",
-    designation: "CEO & Founder",
+    name: "Uttam Gopali",
+    designation: "Chairman",
     email: "sarah@wealthbridge.com",
-    phone: "+1 (555) 123-4567",
+    phone: "+9779851182568",
     imageUrl: image1,
-    bio: "With over 20 years in finance, Sarah founded WealthBridge to create a client-first financial services firm. She holds an MBA from Harvard Business School.",
+    bio: "With over 10 years in Co-oprative",
     social: {
-      linkedin: "https://linkedin.com/in/sarahjohnson",
-      twitter: "https://twitter.com/sarahj",
-      instagram: "https://instagram.com/sarahj_finance"
+      facebook: "https://linkedin.com/in/sarahjohnson",
+      whatsapp: getWhatsAppLink("+9779851182568"),
+      instagram: "https://instagram.com/sarahj_finance",
     },
-    expertise: ["Strategic Planning", "Wealth Management", "Corporate Finance"]
+    expertise: ["Strategic Planning", "Wealth Management", "Corporate Finance"],
   },
+  // Update other members similarly
   {
     id: 2,
     name: "Michael Chen",
@@ -23,67 +30,88 @@ export const teamMembers = [
     email: "michael@wealthbridge.com",
     phone: "+1 (555) 234-5678",
     imageUrl: image1,
-    bio: "Michael leads our investment strategy with a focus on long-term value creation. He's a CFA charterholder with 15+ years of portfolio management experience.",
+    bio: "Michael leads our investment strategy...",
     social: {
-      linkedin: "https://linkedin.com/in/michaelchen",
-      twitter: "https://twitter.com/mchen_finance"
+      facebook: "https://linkedin.com/in/michaelchen",
+      whatsapp: getWhatsAppLink("+1 (555) 234-5678"),
+      instagram: "https://instagram.com/michaelc_finance",
     },
-    expertise: ["Portfolio Management", "Asset Allocation", "Risk Analysis"]
+    expertise: ["Portfolio Management", "Asset Allocation", "Risk Analysis"],
   },
+  // Repeat for other members...
   {
     id: 3,
-    name: "Elena Rodriguez",
-    designation: "Chief Financial Officer",
-    email: "elena@wealthbridge.com",
-    phone: "+1 (555) 345-6789",
+    name: "Michael Chen",
+    designation: "Chief Investment Officer",
+    email: "michael@wealthbridge.com",
+    phone: "+1 (555) 234-5678",
     imageUrl: image1,
-    bio: "Elena ensures our financial operations maintain the highest standards of integrity. She's a CPA with Big 4 accounting firm experience.",
+    bio: "Michael leads our investment strategy...",
     social: {
-      linkedin: "https://linkedin.com/in/elenarodriguez",
-      instagram: "https://instagram.com/elena_cfo"
+      facebook: "https://linkedin.com/in/michaelchen",
+      whatsapp: getWhatsAppLink("+1 (555) 234-5678"),
+      instagram: "https://instagram.com/michaelc_finance",
     },
-    expertise: ["Financial Reporting", "Compliance", "Budgeting"]
+    expertise: ["Portfolio Management", "Asset Allocation", "Risk Analysis"],
   },
   {
     id: 4,
-    name: "David Wilson",
-    designation: "Head of Client Relations",
-    email: "david@wealthbridge.com",
-    phone: "+1 (555) 456-7890",
+    name: "Michael Chen",
+    designation: "Chief Investment Officer",
+    email: "michael@wealthbridge.com",
+    phone: "+1 (555) 234-5678",
     imageUrl: image1,
-    bio: "David builds lasting relationships by understanding each client's unique financial goals. He's been in private wealth management for 12+ years.",
+    bio: "Michael leads our investment strategy...",
     social: {
-      linkedin: "https://linkedin.com/in/davidwilson",
-      twitter: "https://twitter.com/dwilsonwealth"
+      facebook: "https://linkedin.com/in/michaelchen",
+      whatsapp: getWhatsAppLink("+1 (555) 234-5678"),
+      instagram: "https://instagram.com/michaelc_finance",
     },
-    expertise: ["Client Engagement", "Relationship Management", "Communication"]
+    expertise: ["Portfolio Management", "Asset Allocation", "Risk Analysis"],
   },
   {
     id: 5,
-    name: "Priya Sharma",
-    designation: "Senior Financial Advisor",
-    email: "priya@wealthbridge.com",
-    phone: "+1 (555) 567-8901",
+    name: "Michael Chen",
+    designation: "Chief Investment Officer",
+    email: "michael@wealthbridge.com",
+    phone: "+1 (555) 234-5678",
     imageUrl: image1,
-    bio: "Priya specializes in retirement planning and wealth preservation strategies. She holds CFP and ChFC designations.",
+    bio: "Michael leads our investment strategy...",
     social: {
-      linkedin: "https://linkedin.com/in/priyasharma",
-      twitter: "https://twitter.com/priya_fp"
+      facebook: "https://linkedin.com/in/michaelchen",
+      whatsapp: getWhatsAppLink("+1 (555) 234-5678"),
+      instagram: "https://instagram.com/michaelc_finance",
     },
-    expertise: ["Retirement Planning", "Estate Planning", "Tax Strategy"]
+    expertise: ["Portfolio Management", "Asset Allocation", "Risk Analysis"],
   },
   {
     id: 6,
-    name: "James Wilson",
-    designation: "Investment Analyst",
-    email: "james@wealthbridge.com",
-    phone: "+1 (555) 678-9012",
+    name: "Michael Chen",
+    designation: "Chief Investment Officer",
+    email: "michael@wealthbridge.com",
+    phone: "+1 (555) 234-5678",
     imageUrl: image1,
-    bio: "James conducts market research and identifies investment opportunities. He holds a Master's in Financial Engineering.",
+    bio: "Michael leads our investment strategy...",
     social: {
-      linkedin: "https://linkedin.com/in/jameswilson",
-      twitter: "https://twitter.com/jwilson_analyst"
+      facebook: "https://linkedin.com/in/michaelchen",
+      whatsapp: getWhatsAppLink("+1 (555) 234-5678"),
+      instagram: "https://instagram.com/michaelc_finance",
     },
-    expertise: ["Market Research", "Quantitative Analysis", "Financial Modeling"]
-  }
+    expertise: ["Portfolio Management", "Asset Allocation", "Risk Analysis"],
+  },
+  {
+    id: 7,
+    name: "Michael Chen",
+    designation: "Chief Investment Officer",
+    email: "michael@wealthbridge.com",
+    phone: "+1 (555) 234-5678",
+    imageUrl: image1,
+    bio: "Michael leads our investment strategy...",
+    social: {
+      facebook: "https://linkedin.com/in/michaelchen",
+      whatsapp: getWhatsAppLink("+1 (555) 234-5678"),
+      instagram: "https://instagram.com/michaelc_finance",
+    },
+    expertise: ["Portfolio Management", "Asset Allocation", "Risk Analysis"],
+  },
 ];

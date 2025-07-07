@@ -1,10 +1,31 @@
-// components/TeamCard.js
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-
+import { 
+  FaFacebookF, 
+  FaWhatsapp, 
+  FaInstagram, 
+  FaLinkedinIn, 
+  FaTwitter,
+  FaEnvelope,
+  FaPhone
+} from "react-icons/fa";
 
 const TeamCard = ({ member, flipped, toggleFlip }) => {
+  // Social media icon mapping
+  const getSocialIcon = (platform) => {
+    const icons = {
+      facebook: <FaFacebookF className="w-4 h-4 text-[#1877F2]" />,
+      whatsapp: <FaWhatsapp className="w-4 h-4 text-[#25D366]" />,
+      instagram: <FaInstagram className="w-4 h-4 text-[#E1306C]" />,
+      linkedin: <FaLinkedinIn className="w-4 h-4 text-[#0A66C2]" />,
+      twitter: <FaTwitter className="w-4 h-4 text-[#1DA1F2]" />,
+      email: <FaEnvelope className="w-4 h-4 text-gray-600 dark:text-gray-300" />,
+      phone: <FaPhone className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+    };
+    return icons[platform] || null;
+  };
+
   return (
     <div 
       className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 h-[420px] [perspective:1000px] cursor-pointer"
@@ -14,8 +35,8 @@ const TeamCard = ({ member, flipped, toggleFlip }) => {
         {/* Front of Card */}
         <div className="flip-card-front absolute inset-0 [backface-visibility:hidden]">
           <div className="flex flex-col items-center pb-10 h-full">
-            {/* Image container with conditional rendering */}
-            <div className="w-30 h-40 rounded-lg mb-3 mt-10 overflow-hidden relative">
+            {/* Image container */}
+            <div className="w-40 h-50 rounded-lg mb-3 mt-10 overflow-hidden relative">
               {member.imageUrl ? (
                 <Image
                   src={member.imageUrl}
@@ -49,13 +70,6 @@ const TeamCard = ({ member, flipped, toggleFlip }) => {
               >
                 View Details
               </button>
-              <Link
-                href={`mailto:${member.email}`}
-                className="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                onClick={e => e.stopPropagation()}
-              >
-                Contact
-              </Link>
             </div>
           </div>
         </div>
@@ -77,7 +91,7 @@ const TeamCard = ({ member, flipped, toggleFlip }) => {
           </div>
           
           <div className="px-6 pb-6">
-            {/* Profile image on back */}
+            {/* Profile header */}
             <div className="flex items-center mt-2 gap-4">
               <div className="w-16 h-16 rounded-full overflow-hidden relative">
                 {member.imageUrl ? (
@@ -103,26 +117,46 @@ const TeamCard = ({ member, flipped, toggleFlip }) => {
               </div>
             </div>
             
-            <div className="mt-4 space-y-3">
+            <div className="mt-4 space-y-4">
+              {/* About section */}
               <div>
                 <h4 className="font-semibold text-gray-900 dark:text-white">About</h4>
                 <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{member.bio}</p>
               </div>
               
+              {/* Contact section with icons */}
               <div>
                 <h4 className="font-semibold text-gray-900 dark:text-white">Contact</h4>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  <Link 
-                    href={`mailto:${member.email}`} 
-                    className="hover:text-blue-600 dark:hover:text-blue-400"
-                    onClick={e => e.stopPropagation()}
-                  >
-                    {member.email}
-                  </Link>
-                </p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">{member.phone}</p>
+                <div className="mt-2 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700">
+                      <FaEnvelope className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                    </div>
+                    <Link 
+                      href={`mailto:${member.email}`} 
+                      className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                      onClick={e => e.stopPropagation()}
+                    >
+                      {member.email}
+                    </Link>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700">
+                      <FaPhone className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                    </div>
+                    <Link 
+                      href={`tel:${member.phone}`} 
+                      className="text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                      onClick={e => e.stopPropagation()}
+                    >
+                      {member.phone}
+                    </Link>
+                  </div>
+                </div>
               </div>
               
+              {/* Expertise section */}
               <div>
                 <h4 className="font-semibold text-gray-900 dark:text-white">Expertise</h4>
                 <div className="flex flex-wrap gap-2 mt-2">
@@ -137,20 +171,28 @@ const TeamCard = ({ member, flipped, toggleFlip }) => {
                 </div>
               </div>
               
+              {/* Social media section with icons */}
               <div>
                 <h4 className="font-semibold text-gray-900 dark:text-white">Connect</h4>
-                <div className="flex space-x-4 mt-2">
+                <div className="flex gap-3 mt-3">
                   {Object.entries(member.social).map(([platform, url]) => (
                     <Link
                       key={platform}
                       href={url} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-gray-500 hover:text-blue-600 dark:hover:text-blue-400"
+                      className={`
+                        flex items-center justify-center
+                        w-10 h-10 rounded-full
+                        bg-gray-100 dark:bg-gray-700
+                        hover:bg-gray-200 dark:hover:bg-gray-600
+                        transition-colors duration-300
+                        ${platform === 'whatsapp' ? 'hover:bg-green-100 dark:hover:bg-green-900' : ''}
+                      `}
                       onClick={e => e.stopPropagation()}
+                      aria-label={`Connect via ${platform}`}
                     >
-                      <span className="sr-only">{platform}</span>
-                      <div className="bg-gray-200 border-2 border-dashed rounded-xl w-8 h-8" />
+                      {getSocialIcon(platform)}
                     </Link>
                   ))}
                 </div>
