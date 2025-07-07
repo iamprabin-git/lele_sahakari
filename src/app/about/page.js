@@ -80,7 +80,7 @@ const AboutPage = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              For over 15 years, we've empowered clients to achieve financial freedom through innovative solutions and personalized strategies.
+              For over 15 years, we have empowered clients to achieve financial freedom through innovative solutions and personalized strategies.
             </motion.p>
             <motion.div 
               className="mt-10"
