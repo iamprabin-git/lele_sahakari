@@ -36,7 +36,7 @@ const AboutPage = () => {
       id: 4,
       name: 'David Wilson',
       title: 'Head of Client Relations',
-      bio: 'David builds lasting relationships by understanding each client\'s unique financial goals.',
+      bio: 'David builds lasting relationships by understanding each client&#39;s unique financial goals.',
       experience: '12+ years in private wealth management'
     }
   ];
