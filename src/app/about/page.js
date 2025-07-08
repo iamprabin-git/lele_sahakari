@@ -2,9 +2,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+
+import Mission from '@/components/aboutPage/Mission';
+import History from '@/components/aboutPage/History';
+import Team from '@/components/aboutPage/Team';
 
 const AboutPage = () => {
   const [activeTab, setActiveTab] = useState('mission');
@@ -13,10 +16,10 @@ const AboutPage = () => {
   const teamMembers = [
     {
       id: 1,
-      name: 'Sarah Johnson',
-      title: 'CEO &amp; Founder',
-      bio: 'With over 20 years in finance, Sarah founded WealthBridge to create a client-first financial services firm.',
-      experience: 'Former VP at Goldman Sachs, MBA from Wharton'
+      name: 'Saraswati Sijapati',
+      title: 'Manager',
+      bio: 'With over 10 years in Cooperative Finance,teaching.',
+      experience: 'With over 10 years in Cooperative Finance,teaching'
     },
     {
       id: 2,
@@ -60,9 +63,9 @@ const AboutPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-700 dark:from-gray-200 dark:to-gray-700">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-blue-900 to-indigo-800 text-white">
+      <div className="relative bg-gradient-to-r from-blue-900 to-indigo-800 dark:from-gray-200 dark:to-gray-500 text-white">
         <div className="absolute inset-0 bg-black opacity-40 z-0"></div>
         <div className="relative max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8 z-10">
           <div className="text-center">
@@ -117,144 +120,14 @@ const AboutPage = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Mission Section */}
-        {activeTab === 'mission' && (
-          <motion.section 
-            className="py-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="text-center max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-gray-900">Our Mission</h2>
-              <div className="mt-4 h-1 w-24 bg-blue-600 mx-auto"></div>
-              <p className="mt-6 text-xl text-gray-600">
-                We empower individuals and businesses to achieve financial confidence through personalized strategies, innovative solutions, and ethical guidance.
-              </p>
-            </div>
-
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="bg-white rounded-xl shadow-lg p-8">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-blue-50 p-3 rounded-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">Our Approach</h3>
-                    <p className="mt-2 text-gray-600">
-                      We believe in a holistic approach to financial planning that considers every aspect of your life and goals. Our process begins with deep listening and understanding before developing tailored strategies.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-xl shadow-lg p-8">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-blue-50 p-3 rounded-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">Our Commitment</h3>
-                    <p className="mt-2 text-gray-600">
-                      We are committed to transparency, integrity, and putting your interests first. As a fiduciary, we are legally obligated to act in your best interest at all times.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.section>
-        )}
+     <Mission activeTab={activeTab} />
+                 
 
         {/* History Section */}
-        {activeTab === 'history' && (
-          <motion.section 
-            className="py-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="text-center max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-gray-900">Our Journey</h2>
-              <div className="mt-4 h-1 w-24 bg-blue-600 mx-auto"></div>
-              <p className="mt-6 text-xl text-gray-600">
-                From humble beginnings to becoming a trusted financial partner for thousands of clients.
-              </p>
-            </div>
-
-            <div className="mt-16">
-              <div className="relative">
-                {/* Timeline line */}
-                <div className="absolute left-0 md:left-1/2 top-0 h-full w-1 bg-blue-200 transform md:translate-x-1/2"></div>
-                
-                {/* Timeline items */}
-                <ul className="space-y-12">
-                  {timeline.map((item, index) => (
-                    <li key={index} className="relative">
-                      <div className={`flex items-center ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                        <div className="hidden md:flex flex-shrink-0 items-center justify-center w-10 h-10 rounded-full bg-blue-600 text-white absolute left-1/2 transform -translate-x-1/2">
-                          {index + 1}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className={`bg-white rounded-lg shadow-md p-6 max-w-md ${index % 2 === 0 ? 'md:mr-auto md:pr-16' : 'md:ml-auto md:pl-16'}`}>
-                            <div className="flex items-center mb-2">
-                              <span className="bg-blue-600 text-white text-xs font-medium px-2.5 py-0.5 rounded">
-                                {item.year}
-                              </span>
-                            </div>
-                            <p className="text-gray-700">{item.event}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </motion.section>
-        )}
+       <History activeTab={activeTab} />
 
         {/* Team Section */}
-        {activeTab === 'team' && (
-          <motion.section 
-            className="py-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="text-center max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-gray-900">Leadership Team</h2>
-              <div className="mt-4 h-1 w-24 bg-blue-600 mx-auto"></div>
-              <p className="mt-6 text-xl text-gray-600">
-                Our experienced leadership brings decades of financial expertise and a shared commitment to client success.
-              </p>
-            </div>
-
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {teamMembers.map((member) => (
-                <motion.div 
-                  key={member.id}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-                  whileHover={{ y: -5 }}
-                >
-                  <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-48" />
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
-                    <p className="text-blue-600 mt-1">{member.title}</p>
-                    <p className="mt-4 text-gray-600 text-sm">{member.bio}</p>
-                    <div className="mt-4 pt-4 border-t border-gray-100">
-                      <p className="text-xs text-gray-500">{member.experience}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.section>
-        )}
+    <Team activeTab={activeTab} />
 
         {/* Values Section */}
         {activeTab === 'values' && (
@@ -313,59 +186,59 @@ const AboutPage = () => {
         )}
       </div>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-blue-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold">By The Numbers</h2>
-            <p className="mt-4 text-blue-200 max-w-2xl mx-auto">
-              Our commitment to excellence is reflected in our growth and client satisfaction metrics.
-            </p>
-          </div>
+      // {/* Stats Section */}
+      // <section className="py-16 bg-blue-900 text-white">
+      //   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      //     <div className="text-center">
+      //       <h2 className="text-3xl font-bold">By The Numbers</h2>
+      //       <p className="mt-4 text-blue-200 max-w-2xl mx-auto">
+      //         Our commitment to excellence is reflected in our growth and client satisfaction metrics.
+      //       </p>
+      //     </div>
           
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <motion.div 
-                key={index}
-                className="bg-blue-800 rounded-lg p-6 text-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
-                <div className="text-3xl md:text-4xl font-bold">{stat.value}</div>
-                <div className="mt-2 text-blue-200">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      //     <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+      //       {stats.map((stat, index) => (
+      //         <motion.div 
+      //           key={index}
+      //           className="bg-blue-800 rounded-lg p-6 text-center"
+      //           initial={{ opacity: 0, y: 20 }}
+      //           animate={{ opacity: 1, y: 0 }}
+      //           transition={{ delay: index * 0.1, duration: 0.5 }}
+      //         >
+      //           <div className="text-3xl md:text-4xl font-bold">{stat.value}</div>
+      //           <div className="mt-2 text-blue-200">{stat.label}</div>
+      //         </motion.div>
+      //       ))}
+      //     </div>
+      //   </div>
+      // </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-indigo-700 to-purple-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="md:flex md:items-center md:justify-between">
-            <div className="md:w-1/2">
-              <h2 className="text-3xl font-bold">Ready to build your financial future?</h2>
-              <p className="mt-4 text-indigo-100 max-w-md">
-                Our team of experts is ready to create a personalized strategy for your financial goals.
-              </p>
-            </div>
-            <div className="mt-8 md:mt-0 md:w-1/2 md:flex md:justify-end">
-              <div className="inline-flex rounded-md shadow">
-                <button className="bg-white text-indigo-700 font-medium px-8 py-4 rounded-md hover:bg-indigo-50 transition-colors duration-300">
-                  Schedule a Consultation
-                </button>
-              </div>
-              <div className="ml-3 inline-flex">
-                <Link href="/team" className="bg-transparent border-2 border-white text-white font-medium px-8 py-4 rounded-md hover:bg-white/10 transition-colors duration-300">
-                  Meet Our Team
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      // {/* CTA Section */}
+      // <section className="py-16 bg-gradient-to-r from-indigo-700 to-purple-800 text-white">
+      //   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      //     <div className="md:flex md:items-center md:justify-between">
+      //       <div className="md:w-1/2">
+      //         <h2 className="text-3xl font-bold">Ready to build your financial future?</h2>
+      //         <p className="mt-4 text-indigo-100 max-w-md">
+      //           Our team of experts is ready to create a personalized strategy for your financial goals.
+      //         </p>
+      //       </div>
+      //       <div className="mt-8 md:mt-0 md:w-1/2 md:flex md:justify-end">
+      //         <div className="inline-flex rounded-md shadow">
+      //           <button className="bg-white text-indigo-700 font-medium px-8 py-4 rounded-md hover:bg-indigo-50 transition-colors duration-300">
+      //             Schedule a Consultation
+      //           </button>
+      //         </div>
+      //         <div className="ml-3 inline-flex">
+      //           <Link href="/team" className="bg-transparent border-2 border-white text-white font-medium px-8 py-4 rounded-md hover:bg-white/10 transition-colors duration-300">
+      //             Meet Our Team
+      //           </Link>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   </div>
+      // </section>
+    
   );
 };
 
